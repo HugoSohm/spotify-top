@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -9,10 +8,7 @@ import (
 
 func SpotifyLogin(w http.ResponseWriter, r *http.Request) {
 	// Define url
-	spotifyAuthorizeUrl, err := url.Parse("https://accounts.spotify.com/authorize?")
-	if err != nil {
-		log.Fatal(err)
-	}
+	spotifyAuthorizeUrl, _ := url.Parse("https://accounts.spotify.com/authorize?")
 
 	// Add query parameters
 	params := url.Values{}
