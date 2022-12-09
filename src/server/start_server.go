@@ -9,8 +9,13 @@ import (
 	"os"
 )
 
+func index(w http.ResponseWriter, _ *http.Request) {
+	_, _ = fmt.Fprintf(w, "Welcome to Spotify Top API")
+}
+
 func StartServer() {
 	mux := http.NewServeMux()
+	mux.HandleFunc("/", index)
 	mux.HandleFunc("/login", auth.SpotifyLogin)
 	mux.HandleFunc("/callback", auth.SpotifyCallback)
 	mux.HandleFunc("/refresh-token", auth.SpotifyRefreshToken)
