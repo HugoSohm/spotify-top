@@ -11,40 +11,39 @@ import (
 	"os"
 )
 
-type spotifyCallbackResponse struct {
-	AccessToken  string `json:"access_token"`
-	TokenType    string `json:"token_type"`
-	ExpiresIn    int    `json:"expires_in"`
-	RefreshToken string `json:"refresh_token"`
+type spotifyRefreshTokenResponse struct {
+	AccessToken string `json:"access_token"`
+	TokenType   string `json:"token_type"`
+	ExpiresIn   int    `json:"expires_in"`
+	Scope       string `json:"scope"`
 }
 
-func SpotifyCallback(w http.ResponseWriter, r *http.Request) {
-	// Get code from url
-	code := r.URL.Query().Get("code")
-	if code == "" {
-		business.NewError(w, http.StatusBadRequest, "Missing code")
+func SpotifyRefreshToken(w http.ResponseWriter, r *http.Request) {
+	// Get refresh token from url
+	refreshToken := r.URL.Query().Get("refresh_token")
+	if refreshToken == "" {
+		business.NewError(w, http.StatusBadRequest, "Missing refresh_token")
 		return
 	}
 
 	// Define request
-	spotifyTokenRequest, _ := http.NewRequest("POST", "https://accounts.spotify.com/api/token", nil)
+	spotifyRefreshTokenRequest, _ := http.NewRequest("POST", "https://accounts.spotify.com/api/token", nil)
 
 	// Add query headers
-	spotifyTokenRequest.Header = http.Header{
+	spotifyRefreshTokenRequest.Header = http.Header{
 		"Accept":        {"application/json"},
 		"Content-Type":  {"application/x-www-form-urlencoded"},
 		"Authorization": {fmt.Sprintf("Basic %s", base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s", os.Getenv("SPOTIFY_CLIENT_ID"), os.Getenv("SPOTIFY_CLIENT_SECRET")))))},
 	}
 
 	// Add query parameters
-	params := spotifyTokenRequest.URL.Query()
-	params.Add("code", code)
-	params.Add("grant_type", "authorization_code")
-	params.Add("redirect_uri", os.Getenv("SPOTIFY_REDIRECT_URI"))
-	spotifyTokenRequest.URL.RawQuery = params.Encode()
+	params := spotifyRefreshTokenRequest.URL.Query()
+	params.Add("refresh_token", refreshToken)
+	params.Add("grant_type", "refresh_token")
+	spotifyRefreshTokenRequest.URL.RawQuery = params.Encode()
 
 	// Execute http query
-	res, err := http.DefaultClient.Do(spotifyTokenRequest)
+	res, err := http.DefaultClient.Do(spotifyRefreshTokenRequest)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -56,7 +55,7 @@ func SpotifyCallback(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Jsonify the body
-	var response spotifyCallbackResponse
+	var response spotifyRefreshTokenResponse
 	err = json.Unmarshal(bodyBytes, &response)
 	if err != nil {
 		log.Fatal(err)

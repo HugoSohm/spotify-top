@@ -13,6 +13,7 @@ func StartServer() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/login", auth.SpotifyLogin)
 	mux.HandleFunc("/callback", auth.SpotifyCallback)
+	mux.HandleFunc("/refresh-token", auth.SpotifyRefreshToken)
 	mux.HandleFunc("/top/artists", business.GetTopArtists)
 	mux.HandleFunc("/top/tracks", business.GetTopTracks)
 
