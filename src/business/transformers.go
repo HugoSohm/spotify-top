@@ -1,7 +1,7 @@
 package business
 
-func ArtistTransformer(spotifyArtists []SpotifyArtist) []Artist {
-	var result []Artist
+func ArtistTransformer(spotifyArtists []SpotifyArtist) []string {
+	var result []string
 
 	for _, item := range spotifyArtists {
 		artist := Artist{
@@ -10,14 +10,14 @@ func ArtistTransformer(spotifyArtists []SpotifyArtist) []Artist {
 			PictureUrl: item.Images[1].Url,
 			Genres:     item.Genres,
 		}
-		result = append(result, artist)
+		result = append(result, artist.Name)
 	}
 
 	return result
 }
 
-func TrackTransformer(spotifyTracks []SpotifyTrack) []Track {
-	var result []Track
+func TrackTransformer(spotifyTracks []SpotifyTrack) []string {
+	var result []string
 
 	for _, item := range spotifyTracks {
 		track := Track{
@@ -26,7 +26,7 @@ func TrackTransformer(spotifyTracks []SpotifyTrack) []Track {
 			Url:        item.Href,
 			PictureUrl: item.Album.Images[1].Url,
 		}
-		result = append(result, track)
+		result = append(result, track.Name)
 	}
 
 	return result

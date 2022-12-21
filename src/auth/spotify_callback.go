@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/HugoSohm/spotify-top/src/business"
 	"io"
-	"log"
 	"net/http"
 	"os"
 )
@@ -46,20 +45,23 @@ func SpotifyCallback(w http.ResponseWriter, r *http.Request) {
 	// Execute http query
 	res, err := http.DefaultClient.Do(spotifyTokenRequest)
 	if err != nil {
-		log.Fatal(err)
+		business.NewError(w, http.StatusInternalServerError, "Failed to execute query")
+		return
 	}
 
 	// Read the body
 	bodyBytes, err := io.ReadAll(res.Body)
 	if err != nil {
-		log.Fatal(err)
+		business.NewError(w, http.StatusInternalServerError, "Failed to read body")
+		return
 	}
 
 	// Jsonify the body
 	var response spotifyCallbackResponse
 	err = json.Unmarshal(bodyBytes, &response)
 	if err != nil {
-		log.Fatal(err)
+		business.NewError(w, http.StatusInternalServerError, "Failed to jsonify body")
+		return
 	}
 
 	// Return the accessToken

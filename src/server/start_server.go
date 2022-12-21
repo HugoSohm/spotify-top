@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/HugoSohm/spotify-top/src/auth"
 	"github.com/HugoSohm/spotify-top/src/business"
-	"log"
+	"github.com/gorilla/mux"
 	"net/http"
 	"os"
 )
@@ -14,16 +14,17 @@ func index(w http.ResponseWriter, _ *http.Request) {
 }
 
 func StartServer() {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", index)
-	mux.HandleFunc("/login", auth.SpotifyLogin)
-	mux.HandleFunc("/callback", auth.SpotifyCallback)
-	mux.HandleFunc("/refresh-token", auth.SpotifyRefreshToken)
-	mux.HandleFunc("/top/artists", business.GetTopArtists)
-	mux.HandleFunc("/top/tracks", business.GetTopTracks)
+	router := mux.NewRouter()
+	router.HandleFunc("/", index)
+	router.HandleFunc("/login", auth.SpotifyLogin)
+	router.HandleFunc("/callback", auth.SpotifyCallback)
+	router.HandleFunc("/refresh-token", auth.SpotifyRefreshToken)
+	router.HandleFunc("/top/artists", business.GetTopArtists)
+	router.HandleFunc("/top/tracks", business.GetTopTracks)
+	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./images")))
 
-	err := http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("PORT")), mux)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("PORT")), router)
 	if err != nil {
-		log.Fatal(fmt.Sprintf("Failed to start the server on :%s", os.Getenv("PORT")))
+		panic(fmt.Sprintf("Failed to start the server on :%s", os.Getenv("PORT")))
 	}
 }

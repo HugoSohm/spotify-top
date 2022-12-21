@@ -2,9 +2,7 @@ package business
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
 )
@@ -41,26 +39,35 @@ func GetTopTracks(w http.ResponseWriter, r *http.Request) {
 	// Execute the request
 	res, err := http.DefaultClient.Do(spotifyTopArtistsUrl)
 	if err != nil {
-		log.Fatal(err)
+		NewError(w, http.StatusInternalServerError, "Failed to execute query")
+		return
 	}
 
 	// Read the response
 	bodyBytes, err := io.ReadAll(res.Body)
 	if err != nil {
-		log.Fatal(err)
+		NewError(w, http.StatusInternalServerError, "Failed to read body")
+		return
 	}
 
 	// Jsonify the response
 	var response SpotifyTopTracksResponse
 	err = json.Unmarshal(bodyBytes, &response)
 	if err != nil {
-		log.Fatal(err)
+		NewError(w, http.StatusInternalServerError, "Failed to jsonify body")
+		return
 	}
 
 	// Transform response into data
 	var result = TrackTransformer(response.Items)
+	if result == nil {
+		NewError(w, http.StatusInternalServerError, "Data is empty (try refreshing the token)")
+		return
+	}
+
+	generateImage(w, r, result, "morceaux")
 
 	// Format and display data
-	indentedResult, _ := json.MarshalIndent(result, "", "  ")
-	_, _ = fmt.Fprintf(w, string(indentedResult))
+	/*indentedResult, _ := json.MarshalIndent(result, "", "  ")
+	_, _ = fmt.Fprintf(w, string(indentedResult))*/
 }
