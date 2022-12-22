@@ -27,8 +27,11 @@
 
 <!-- GETTING STARTED -->
 ## Getting Started
+### Available endpoints
 
-> To get a local copy up and running follow these simple example steps.
+- [**Login with spotify** - /login](https://api.spotifytop.hugosohm.fr/login)
+- [**Get top artists** - /top/artists](https://api.spotifytop.hugosohm.fr/top/artists)
+- [**Get top tracks** - /top/tracks](https://api.spotifytop.hugosohm.fr/top/tracks)
 
 ### Prerequisites
 #### Install GoLang
@@ -67,7 +70,11 @@ cp .env.example .env
 
 #### Run project
 ```sh
+# Production
 go run server.go
+
+# Development
+air
 ```
 
 <!-- MARKDOWN LINKS & IMAGES -->
