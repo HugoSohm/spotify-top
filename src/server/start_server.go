@@ -2,8 +2,8 @@ package server
 
 import (
 	"fmt"
-	"github.com/HugoSohm/spotify-top/src/auth"
-	"github.com/HugoSohm/spotify-top/src/business"
+	"github.com/HugoSohm/spotifytop-api/src/auth"
+	"github.com/HugoSohm/spotifytop-api/src/business"
 	"github.com/gorilla/mux"
 	"net/http"
 	"os"

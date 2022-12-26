@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/HugoSohm/spotify-top/src/business"
+	"github.com/HugoSohm/spotifytop-api/src/business"
 	"io"
 	"net/http"
 	"os"

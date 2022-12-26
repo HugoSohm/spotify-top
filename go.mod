@@ -1,4 +1,4 @@
-module github.com/HugoSohm/spotify-top
+module github.com/HugoSohm/spotifytop-api
 
 go 1.19
 

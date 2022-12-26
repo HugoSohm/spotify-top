@@ -12,16 +12,16 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/HugoSohm/spotify-top">
+  <a href="https://github.com/HugoSohm/spotifytop-api">
     <img src="https://cdn.pixabay.com/photo/2021/12/11/06/40/spotify-6862049_1280.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Spotify Top</h3>
+<h3 align="center">Spotify Top API</h3>
 
   <p align="center">
     Get your top artists and tracks from Spotify
     <br />
-    <a href="https://github.com/HugoSohm/spotify-top"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/HugoSohm/spotifytop-api"><strong>Explore the docs »</strong></a>
   </p>
 </div>
 
@@ -55,7 +55,7 @@ git config --global url.git@github.com:.insteadOf https://github.com/
 
 #### Clone the repository
 ```bash
-git clone https://github.com/HugoSohm/spotify-top.git
+git clone https://github.com/HugoSohm/spotifytop-api.git
 ```
 
 #### Install packages
@@ -78,13 +78,13 @@ air
 ```
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[contributors-shield]: https://img.shields.io/github/contributors/HugoSohm/spotify-top.svg?style=for-the-badge
-[contributors-url]: https://github.com/HugoSohm/spotify-top/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/HugoSohm/spotify-top.svg?style=for-the-badge
-[forks-url]: https://github.com/HugoSohm/spotify-top/network/members
-[stars-shield]: https://img.shields.io/github/stars/HugoSohm/spotify-top.svg?style=for-the-badge
-[stars-url]: https://github.com/HugoSohm/spotify-top/stargazers
-[issues-shield]: https://img.shields.io/github/issues/HugoSohm/spotify-top.svg?style=for-the-badge
-[issues-url]: https://github.com/HugoSohm/spotify-top/issues
+[contributors-shield]: https://img.shields.io/github/contributors/HugoSohm/spotifytop-api.svg?style=for-the-badge
+[contributors-url]: https://github.com/HugoSohm/spotifytop-api/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/HugoSohm/spotifytop-api.svg?style=for-the-badge
+[forks-url]: https://github.com/HugoSohm/spotifytop-api/network/members
+[stars-shield]: https://img.shields.io/github/stars/HugoSohm/spotifytop-api.svg?style=for-the-badge
+[stars-url]: https://github.com/HugoSohm/spotifytop-api/stargazers
+[issues-shield]: https://img.shields.io/github/issues/HugoSohm/spotifytop-api.svg?style=for-the-badge
+[issues-url]: https://github.com/HugoSohm/spotifytop-api/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/hugo-sohm
