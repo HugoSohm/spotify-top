@@ -64,7 +64,19 @@ func SpotifyCallback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var cookie = http.Cookie{
+		Name:     "spotifytop_jwt",
+		Value:    response.AccessToken,
+		Path:     "/",
+		Domain:   os.Getenv("FRONT_URL"),
+		Secure:   false,
+		HttpOnly: false,
+		SameSite: 0,
+	}
+	http.SetCookie(w, &cookie)
+	http.Redirect(w, r, os.Getenv("FRONT_URL"), http.StatusSeeOther)
+
 	// Return the accessToken
-	indentedResult, _ := json.MarshalIndent(response, "", "  ")
-	_, _ = fmt.Fprintf(w, string(indentedResult))
+	/*indentedResult, _ := json.MarshalIndent(response, "", "  ")
+	_, _ = fmt.Fprintf(w, string(indentedResult))*/
 }

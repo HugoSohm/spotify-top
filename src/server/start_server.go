@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/HugoSohm/spotifytop-api/src/auth"
 	"github.com/HugoSohm/spotifytop-api/src/business"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"net/http"
 	"os"
@@ -23,7 +24,7 @@ func StartServer() {
 	router.HandleFunc("/top/tracks", business.GetTopTracks)
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./images")))
 
-	err := http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("PORT")), router)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("PORT")), handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(router))
 	if err != nil {
 		panic(fmt.Sprintf("Failed to start the server on :%s", os.Getenv("PORT")))
 	}
